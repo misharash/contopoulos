@@ -2,6 +2,13 @@
 
 int main_loop() {
 	int i,j,kk;
+	//fill f's
+	for (i=1;i<inn-1;i++)
+		for (j=1;j<inm-1;j++)
+			inf[i][j]=-AA(inu[i][j]);
+	for (i=1;i<outn-1;i++)
+		for (j=1;j<outm-1;j++)
+			outf[i][j]=-AA(outu[i][j]);
 	//main loop
 	double diff=1e20,diff2;
 	double **oldinu=matalloc(inn,inm),**oldoutu=matalloc(outn,outm);
