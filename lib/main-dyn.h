@@ -3,9 +3,9 @@
 int main_loop() {
 	int i,j;
 	//main loop
-	double diff=1;
+	double diff=1e20;
 	k=0;
-	const int MAXITS=100;
+	int MAXITS=100;
 	while ((diff>1e-3)&&(k<MAXITS)) {
 		diff=0;
 		k++;
@@ -27,7 +27,7 @@ int main_loop() {
 		//fill array for sorting
 		for (j=1;j<=N+1;j++) {
 			dp[j-1].Psi=inu[N][j]*l1+outu[1][j-1]*l2;
-			diff+=fabs(inu[N][j]-outu[1][j-1]);
+			diff+=sqr(inu[N][j]-outu[1][j-1]);
 			dp[j-1].AA=mu1*AA(inu[N][j])+mu2*AA(outu[1][j-1])+mu3*(inu[N][j]-outu[1][j-1]);
 		}
 		//sort
@@ -41,7 +41,7 @@ int main_loop() {
 		//print to files
 		printtofiles(0);
 		//print number of loops and difference
-		diff/=N;
+		diff=sqrt(diff/N);
 		printf("\n%d %lf\n",k,diff);
 		break; //temp!!
 	}

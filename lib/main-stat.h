@@ -28,9 +28,9 @@ int main_loop() {
 			for (i=1;i<inn-1;i++)
 				for (j=1;j<inm-1;j++) {
 					inf[i][j]=-AA(inu[i][j]);
-					diff2+=fabs(inu[i][j]-oldinu[i][j]);
+					diff2+=sqr(inu[i][j]-oldinu[i][j]);
 				}
-			diff2/=N*N;
+			diff2=sqrt(diff2)/N;
 			printf("Solved inside %d: diff %lf\n",kk,diff2);
 		}
 		//set outside boundaries as Psiopen
@@ -54,16 +54,15 @@ int main_loop() {
 			for (i=1;i<outn-1;i++)
 				for (j=1;j<outm-1;j++) {
 					outf[i][j]=-AA(outu[i][j]);
-					diff2+=fabs(outu[i][j]-oldoutu[i][j]);
+					diff2+=sqr(outu[i][j]-oldoutu[i][j]);
 				}
-			diff2/=N*N;
-			//matout(oldoutu,outn,outm); //temporarily!
+			diff2=sqrt(diff2)/N;
 			printf("Solved outside %d: diff %lf\n",kk,diff2);
 		}
 		//fill array for sorting
 		for (j=1;j<=N+1;j++) {
 			dp[j-1].Psi=(inu[N][j]+outu[1][j-1])/2;
-			diff+=fabs(inu[N][j]-outu[1][j-1]);
+			diff+=sqr(inu[N][j]-outu[1][j-1]);
 			dp[j-1].AA=mu1*AA(inu[N][j])+mu2*AA(outu[1][j-1])+mu3*(inu[N][j]-outu[1][j-1]);
 		//fprintf(stderr,"%d %lf\n",k,diff);
 		}
@@ -79,7 +78,7 @@ int main_loop() {
 		printtofiles(0);
 		break; //temporarily!
 		//print number of loops and difference
-		diff/=N;
+		diff=sqr(diff/N);
 		printf("\n%d %lf\n",k,diff);
 	}
 	return 0;
