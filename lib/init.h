@@ -41,11 +41,11 @@ int inside_init() {
 		x=h*i;
 		for (j=1;j<inm-1;j++) {
 			z=h*(j-1);
-			ina[i][j]=(1-sqr(x))*(1/sqr(h)-1/x/(2*h))-2*x*(2/h);
-			inb[i][j]=(1-sqr(x))*(1/sqr(h)+1/x/(2*h))+2*x*(2/h);
-			inc[i][j]=(1-sqr(x))/sqr(h);
-			ind[i][j]=(1-sqr(x))/sqr(h);
-			ine[i][j]=-(1-sqr(x))*4/sqr(h);
+			ina[i][j]=(sqr(x)-1)/sqr(h)+(sqr(x)+1)/x/(2*h);
+			inb[i][j]=(sqr(x)-1)/sqr(h)-(sqr(x)+1)/x/(2*h);
+			inc[i][j]=(sqr(x)-1)/sqr(h);
+			ind[i][j]=(sqr(x)-1)/sqr(h);
+			ine[i][j]=-4*(sqr(x)-1)/sqr(h);
 			//initial u is dipole
 			//inu[i][j]=sqr(x)/pow(sqr(x)+sqr(z),1.5);
 			inu[i][j]=Psiopen*(1-z/hypot(x,z)); //not dipole but monopole
@@ -121,11 +121,11 @@ int outside_init() {
 		x=1.+h*(i-1);
 		for (j=1;j<outm-1;j++) {
 			z=h*j;
-			outa[i][j]=(1-sqr(x))*(1/sqr(h)-1/x/(2*h))-2*x*(2/h);
-			outb[i][j]=(1-sqr(x))*(1/sqr(h)+1/x/(2*h))+2*x*(2/h);
-			outc[i][j]=(1-sqr(x))/sqr(h);
-			outd[i][j]=(1-sqr(x))/sqr(h);
-			oute[i][j]=-(1-sqr(x))*4/sqr(h);
+			outa[i][j]=(sqr(x)-1)/sqr(h)+(sqr(x)+1)/x/(2*h);
+			outb[i][j]=(sqr(x)-1)/sqr(h)-(sqr(x)+1)/x/(2*h);
+			outc[i][j]=(sqr(x)-1)/sqr(h);
+			outd[i][j]=(sqr(x)-1)/sqr(h);
+			oute[i][j]=-4*(sqr(x)-1)/sqr(h);
 			//initial u is dipole
 			//outu[i][j]=sqr(x)/pow(sqr(x)+sqr(z),1.5);
 			outu[i][j]=Psiopen*(1-z/hypot(x,z)); //not dipole but monopole

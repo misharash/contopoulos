@@ -5,10 +5,10 @@ int main_loop() {
 	//fill f's
 	for (i=1;i<inn-1;i++)
 		for (j=1;j<inm-1;j++)
-			inf[i][j]=-AA(inu[i][j]);
+			inf[i][j]=AA(inu[i][j]);
 	for (i=1;i<outn-1;i++)
 		for (j=1;j<outm-1;j++)
-			outf[i][j]=-AA(outu[i][j]);
+			outf[i][j]=AA(outu[i][j]);
 	//main loop
 	double diff=1e20,diff2;
 	double **oldinu=matalloc(inn,inm),**oldoutu=matalloc(outn,outm);
@@ -21,17 +21,18 @@ int main_loop() {
 		kk=0;
 		while (diff2>1e-2) {
 			matcpy(oldinu,inu,inn,inm);
-			solvePSR(ina,inb,inc,ind,ine,inf,inu,inmask,inn,inm,0);
+			solvePSR(ina,inb,inc,ind,ine,inf,inu,inmask,inn,inm,0.9999);
 			kk++;
 			diff2=0;
 			//rewrite f's and count difference
 			for (i=1;i<inn-1;i++)
 				for (j=1;j<inm-1;j++) {
-					inf[i][j]=-AA(inu[i][j]);
+					inf[i][j]=AA(inu[i][j]);
 					diff2+=sqr(inu[i][j]-oldinu[i][j]);
 				}
 			diff2=sqrt(diff2)/N;
 			printf("Solved inside %d: diff %lf\n",kk,diff2);
+            //printtofiles(-1); //temp
 		}
 		//set outside boundaries as Psiopen
 		//bottom
@@ -43,13 +44,13 @@ int main_loop() {
 		kk=0;
 		while (diff2>1e-2) {
 			matcpy(oldoutu,outu,outn,outm);
-			solvePSR(outa,outb,outc,outd,oute,outf,outu,outmask,outn,outm,0.5);
+			solvePSR(outa,outb,outc,outd,oute,outf,outu,outmask,outn,outm,0.9999);
 			kk++;
 			diff2=0;
 			//rewrite f's and count difference
 			for (i=1;i<outn-1;i++)
 				for (j=1;j<outm-1;j++) {
-					outf[i][j]=-AA(outu[i][j]);
+					outf[i][j]=AA(outu[i][j]);
 					diff2+=sqr(outu[i][j]-oldoutu[i][j]);
 				}
 			diff2=sqrt(diff2)/N;
