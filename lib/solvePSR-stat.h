@@ -16,7 +16,7 @@ void solvePSR(double **a, double **b, double **c, double **d, double **e,
 			resid*=mask[j][l]/e[j][l];
 			anormf += fabs(resid);
 		}
-	//fprintf(stderr,"%lf\n",anormf);
+	//printf("%lf\n",anormf);
 	for (k=0;k<MAXITS;k++) {
 		anorm=0.0;
 		jsw=1;

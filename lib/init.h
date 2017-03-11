@@ -133,15 +133,6 @@ int outside_init() {
 	}
 	//lower boundary value will be rewritten after solving equation inside
 	//Neumann boundary conditions
-	//left is also degradated equation
-	i=1;
-	for (j=1;j<outm-1;j++) {
-		outa[i][j]=2/h;
-		outb[i][j]=0;
-		outc[i][j]=0;
-		outd[i][j]=0;
-		oute[i][j]=-2/h;
-	}
     //top -- radial field
     j=10*N;
     z=h*j;
@@ -164,5 +155,20 @@ int outside_init() {
 		outa[i][j]=0;
         //other don't change
 	}
+	//left is also degradated equation
+	i=1;
+	for (j=1;j<outm-1;j++) {
+		outa[i][j]=2/h;
+		outb[i][j]=0;
+		outc[i][j]=0;
+		outd[i][j]=0;
+		oute[i][j]=-2/h;
+	}
+    //top right angle is special
+    i=outn-2;
+    j=outm-2;
+    outa[i][j]=outc[i][j]=0;
+    outb[i][j]=outd[i][j]=-1;
+    oute[i][j]=2;
 	return 0;
 }

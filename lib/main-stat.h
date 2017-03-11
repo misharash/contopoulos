@@ -9,6 +9,7 @@ int main_loop() {
 	for (i=1;i<outn-1;i++)
 		for (j=1;j<outm-1;j++)
 			outf[i][j]=AA(outu[i][j]);
+    outf[outn-2][outm-2]=0; //top right angle is special
 	//main loop
 	double diff=1e20,diff2;
 	double **oldinu=matalloc(inn,inm),**oldoutu=matalloc(outn,outm);
@@ -53,6 +54,7 @@ int main_loop() {
 					outf[i][j]=AA(outu[i][j]);
 					diff2+=sqr(outu[i][j]-oldoutu[i][j]);
 				}
+            outf[outn-2][outm-2]=0; //top right angle is special
 			diff2=sqrt(diff2)/N;
 			printf("Solved outside %d: diff %lf\n",kk,diff2);
 		}
