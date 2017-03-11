@@ -137,7 +137,7 @@ int outside_init() {
     j=10*N;
     z=h*j;
     for (i=1;i<outn-1;i++) {
-		x=h*(i-1);
+		x=1.+h*(i-1);
         outa[i][j]-=x/z*outc[i][j];
         outb[i][j]+=x/z*outc[i][j];
         outd[i][j]+=outc[i][j];
@@ -146,11 +146,11 @@ int outside_init() {
 	}
 	//right -- radial field
     i=outn-2;
-    x=h*(i-1);
+    x=1.+h*(i-1);
     for (j=1;j<outm-1;j++) {
 		z=h*j;
-        outd[i][j]-=z/x*outa[i][j];
-        outc[i][j]+=z/x*outa[i][j];
+        outc[i][j]-=z/x*outa[i][j];
+        outd[i][j]+=z/x*outa[i][j];
         outb[i][j]+=outa[i][j];
 		outa[i][j]=0;
         //other don't change

@@ -4,8 +4,8 @@
 void solvePSR(double **a, double **b, double **c, double **d, double **e,
 	double **f, double **u, double** mask, int n, int m, const double rjac)
 {
-	const int MAXITS=1000000;
-	const double EPS=1e-6;
+	const int MAXITS=10000;
+	const double EPS=1e-4;
 	double anormf=0.0,omega=1.0,anorm,resid;
 	int j,l,k,ipass,jsw,lsw;
 	for (j=1;j<n-1;j++)
