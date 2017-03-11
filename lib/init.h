@@ -91,10 +91,10 @@ int inside_init() {
 	i=N;
 	for (j=1;j<inm-1;j++) {
 		ina[i][j]=0;
-		inb[i][j]=2/h;
+		inb[i][j]=-2/h;
 		inc[i][j]=0;
 		ind[i][j]=0;
-		ine[i][j]=-2/h;
+		ine[i][j]=2/h;
 	}
 	return 0;
 }
@@ -136,11 +136,11 @@ int outside_init() {
 	//left is also degradated equation
 	i=1;
 	for (j=1;j<outm-1;j++) {
-		outa[i][j]=-2/h;
+		outa[i][j]=2/h;
 		outb[i][j]=0;
 		outc[i][j]=0;
 		outd[i][j]=0;
-		oute[i][j]=2/h;
+		oute[i][j]=-2/h;
 	}
     //top -- radial field
     j=10*N;
