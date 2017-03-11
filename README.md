@@ -1,4 +1,5 @@
 #Based on The Astrophysical Journal 1999 Jan 20 'The axisymmetric pulsar magnetosphere' Ioannis Contopoulos, Demosthenes Kazanas, and Christian Fendt
+Now changed to normal coordinates and boundary at 10R_LC (like in Timokhin's paper, 2008)
 * contopoulos1.c -- variant that calculates AA'(Psi) inside the so-called 'elliptic solver' from Numerical Recipes
 * contopoulos2.c -- variant that is closer to the article: it calculates AA'(Psi) once, puts it into coefficient matrix and gives to elliptic solver, then repeats the same for stable function AA'(Psi) until the difference is small enough
 * plot1.py -- plot an image for monopole test (like in article)

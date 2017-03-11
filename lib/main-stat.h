@@ -21,7 +21,7 @@ int main_loop() {
 		kk=0;
 		while (diff2>1e-2) {
 			matcpy(oldinu,inu,inn,inm);
-			solvePSR(ina,inb,inc,ind,ine,inf,inu,inmask,inn,inm,0.9999);
+			solvePSR(ina,inb,inc,ind,ine,inf,inu,inmask,inn,inm,0);
 			kk++;
 			diff2=0;
 			//rewrite f's and count difference
@@ -38,16 +38,12 @@ int main_loop() {
 		j=0;
 		for (i=0;i<outn;i++)
 			outu[i][j]=inu[N][1];
-		//right
-		i=N+1;
-		for (j=0;j<outm;j++)
-			outu[i][j]=inu[N][1];
 		//solve outside many times
 		diff2=1e20;
 		kk=0;
 		while (diff2>1e-2) {
 			matcpy(oldoutu,outu,outn,outm);
-			solvePSR(outa,outb,outc,outd,oute,outf,outu,outmask,outn,outm,0.9999);
+			solvePSR(outa,outb,outc,outd,oute,outf,outu,outmask,outn,outm,0.5);
 			kk++;
 			diff2=0;
 			//rewrite f's and count difference
