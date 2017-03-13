@@ -18,40 +18,40 @@ int AA_init() {
 	return 0;
 }
 
-int inside_init() {
+int all_init() {
 	int i,j;
 	double z,x;
-	//inside solver init
-	inn=N+2;
-	inm=10*N+3;
-	ina=matalloc(inn,inm);
-	inb=matalloc(inn,inm);
-	inc=matalloc(inn,inm);
-	ind=matalloc(inn,inm);
-	ine=matalloc(inn,inm);
-	inf=matalloc(inn,inm);
-	inu=matalloc(inn,inm);
-	inmask=matalloc(inn,inm);
+	//solver init
+	alln=10*N+2;
+	allm=10*N+3;
+	alla=matalloc(alln,allm);
+	allb=matalloc(alln,allm);
+	allc=matalloc(alln,allm);
+	alld=matalloc(alln,allm);
+	alle=matalloc(alln,allm);
+	allf=matalloc(alln,allm);
+	allu=matalloc(alln,allm);
+	allmask=matalloc(alln,allm);
 	//fill mask
-	for (i=0;i<inn;i++)
-		for (j=0;j<inm;j++)
-			inmask[i][j]=1;
-	//filling initial data inside
-	for (i=1;i<inn-1;i++) {
+	for (i=1;i<alln-1;i++)
+		for (j=1;j<allm-1;j++)
+			allmask[i][j]=1;
+	//filling initial data
+	for (i=1;i<alln-1;i++) {
 		x=h*i;
-		for (j=1;j<inm-1;j++) {
+		for (j=1;j<allm-1;j++) {
 			z=h*(j-1);
-			ina[i][j]=(sqr(x)-1)/sqr(h)+(sqr(x)+1)/x/(2*h);
-			inb[i][j]=(sqr(x)-1)/sqr(h)-(sqr(x)+1)/x/(2*h);
-			inc[i][j]=(sqr(x)-1)/sqr(h);
-			ind[i][j]=(sqr(x)-1)/sqr(h);
-			ine[i][j]=-4*(sqr(x)-1)/sqr(h);
+			alla[i][j]=(sqr(x)-1)/sqr(h)+(sqr(x)+1)/x/(2*h);
+			allb[i][j]=(sqr(x)-1)/sqr(h)-(sqr(x)+1)/x/(2*h);
+			allc[i][j]=(sqr(x)-1)/sqr(h);
+			alld[i][j]=(sqr(x)-1)/sqr(h);
+			alle[i][j]=-4*(sqr(x)-1)/sqr(h);
 			//initial u is dipole
-			//inu[i][j]=sqr(x)/pow(sqr(x)+sqr(z),1.5);
-			inu[i][j]=Psiopen*(1-z/hypot(x,z)); //not dipole but monopole
+			//allu[i][j]=sqr(x)/pow(sqr(x)+sqr(z),1.5);
+			allu[i][j]=Psiopen*(1-z/hypot(x,z)); //not dipole but monopole
 		}
 	}
-	//create exact dipolar area here to begin, size of about N/20 (???)
+	//create exact dipolar area here to begin, size of about N/5
 	//assume m=1
 	int da=N/5;
 	for (i=1;i<=da;i++) {
@@ -59,116 +59,63 @@ int inside_init() {
 		for (j=1;j<=da+1;j++) {
 			z=h*(j-1);
 			//inu[i][j]=sqr(x)/pow(sqr(x)+sqr(z),3.0/2.0);
-			inu[i][j]=Psiopen*(1-z/hypot(x,z)); //not dipole but monopole
-			inmask[i][j]=0;
+			allu[i][j]=Psiopen*(1-z/hypot(x,z)); //not dipole but monopole
+			allmask[i][j]=0;
 		}
 	}
-	//at the axis already zeros, it's okay
+    //Timokhin's form of equation on LC
+    i=N;
+    x=1;
+    for (j=1;j<allm-1;j++) {
+        alla[i][j]=allb[i][j]=4;
+        allc[i][j]=alld[i][j]=2;
+        alle[i][j]=-12;
+    }
+	//at the Z axis already zeros, it's okay
 	//Neumann boundary condtions
     //top -- radial field
     j=10*N+1;
     z=h*(j-1);
-    for (i=1;i<inn-1;i++) {
+    for (i=1;i<alln-1;i++) {
 		x=h*i;
-        ina[i][j]-=x/z*inc[i][j];
-        inb[i][j]+=x/z*inc[i][j];
-        ind[i][j]+=inc[i][j];
-		inc[i][j]=0;
+        alla[i][j]-=x/z*allc[i][j];
+        allb[i][j]+=x/z*allc[i][j];
+        alld[i][j]+=allc[i][j];
+		allc[i][j]=0;
         //other don't change
 	}
-	//bottom -- do it like in notes2.pdf
+	//bottom inside -- dPsi/dZ=0
 	j=1;
 	z=h*(j-1);
-	for (i=1;i<inn-1;i++) {
+	for (i=1;i<=N;i++) {
 		x=h*i;
-		inc[i][j]+=ind[i][j];
-		ind[i][j]=0;
-		inmask[i][j]=0; //temp for monopole check
-		inu[i][j]=Psiopen; //temp
+		allc[i][j]+=alld[i][j];
+		alld[i][j]=0;
+		allmask[i][j]=0; //temp for monopole check
+		allu[i][j]=Psiopen; //temp
 		//other coefficients don't change
 	}
-	//right: this boundary condition is just degradated equation, so we can do nothing but approximate derivative as left derivative
-	i=N;
-	for (j=1;j<inm-1;j++) {
-		ina[i][j]=0;
-		inb[i][j]=-2/h;
-		inc[i][j]=0;
-		ind[i][j]=0;
-		ine[i][j]=2/h;
-	}
-	return 0;
-}
-
-int outside_init() {
-	int i,j;
-	double x,z;
-	//outside solver init
-	outn=9*N+3;
-	outm=10*N+2;
-	outa=matalloc(outn,outm);
-	outb=matalloc(outn,outm);
-	outc=matalloc(outn,outm);
-	outd=matalloc(outn,outm);
-	oute=matalloc(outn,outm);
-	outf=matalloc(outn,outm);
-	outu=matalloc(outn,outm);
-	outmask=matalloc(outn,outm);
-	//fill mask
-	for (i=0;i<outn;i++)
-		for (j=0;j<outm;j++)
-			outmask[i][j]=1;
-	for (i=1;i<outn-1;i++) {
-		x=1.+h*(i-1);
-		for (j=1;j<outm-1;j++) {
-			z=h*j;
-			outa[i][j]=(sqr(x)-1)/sqr(h)+(sqr(x)+1)/x/(2*h);
-			outb[i][j]=(sqr(x)-1)/sqr(h)-(sqr(x)+1)/x/(2*h);
-			outc[i][j]=(sqr(x)-1)/sqr(h);
-			outd[i][j]=(sqr(x)-1)/sqr(h);
-			oute[i][j]=-4*(sqr(x)-1)/sqr(h);
-			//initial u is dipole
-			//outu[i][j]=sqr(x)/pow(sqr(x)+sqr(z),1.5);
-			outu[i][j]=Psiopen*(1-z/hypot(x,z)); //not dipole but monopole
-		}
-	}
-	//lower boundary value will be rewritten after solving equation inside
-	//Neumann boundary conditions
-    //top -- radial field
-    j=10*N;
-    z=h*j;
-    for (i=1;i<outn-1;i++) {
-		x=1.+h*(i-1);
-        outa[i][j]-=x/z*outc[i][j];
-        outb[i][j]+=x/z*outc[i][j];
-        outd[i][j]+=outc[i][j];
-		outc[i][j]=0;
-        //other don't change
-	}
+    //bottom outside -- now (monopole) just Psiopen, then will think
+    for (i=N+1;i<alln-1;i++) {
+        allu[i][j]=Psiopen;
+        allmask[i][j]=0;
+    }
 	//right -- radial field
-    i=outn-2;
-    x=1.+h*(i-1);
-    for (j=1;j<outm-1;j++) {
+    i=alln-2;
+    x=h*i;
+    for (j=1;j<allm-1;j++) {
 		z=h*j;
-        outc[i][j]-=z/x*outa[i][j];
-        outd[i][j]+=z/x*outa[i][j];
-        outb[i][j]+=outa[i][j];
-		outa[i][j]=0;
+        allc[i][j]-=z/x*alla[i][j];
+        alld[i][j]+=z/x*alla[i][j];
+        allb[i][j]+=alla[i][j];
+		alla[i][j]=0;
         //other don't change
-	}
-	//left is also degradated equation
-	i=1;
-	for (j=1;j<outm-1;j++) {
-		outa[i][j]=2/h;
-		outb[i][j]=0;
-		outc[i][j]=0;
-		outd[i][j]=0;
-		oute[i][j]=-2/h;
 	}
     //top right angle is special
-    i=outn-2;
-    j=outm-2;
-    outa[i][j]=outc[i][j]=0;
-    outb[i][j]=outd[i][j]=-1;
-    oute[i][j]=2;
+    i=alln-2;
+    j=allm-2;
+    alla[i][j]=allc[i][j]=0;
+    allb[i][j]=alld[i][j]=-1;
+    alle[i][j]=2;
 	return 0;
 }

@@ -16,15 +16,13 @@ double sqr(double a) {return a*a;}
 
 int main() {
 	//malloc
-	infilen=malloc(50);
-	outfilen=malloc(50);
+	allfilen=malloc(50);
 	tfilen=malloc(50);
 	//mkdir
 	mkdir("data",0775);
 	//call inits
 	AA_init();
-	inside_init();
-	outside_init();
+	all_init();
 	//write arrays to file when SIGINT
 	signal(SIGINT,printtofiles);
 	//main loop
