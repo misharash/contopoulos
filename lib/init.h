@@ -67,9 +67,9 @@ int all_init() {
     i=N;
     x=1;
     for (j=1;j<allm-1;j++) {
-        alla[i][j]=allb[i][j]=4;
-        allc[i][j]=alld[i][j]=2;
-        alle[i][j]=-12;
+        alla[i][j]=allb[i][j]=4/sqr(h);
+        allc[i][j]=alld[i][j]=2/sqr(h);
+        alle[i][j]=-12/sqr(h);
     }
 	//at the Z axis already zeros, it's okay
 	//Neumann boundary condtions

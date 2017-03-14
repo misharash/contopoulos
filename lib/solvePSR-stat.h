@@ -14,6 +14,8 @@ void solvePSR(double **a, double **b, double **c, double **d, double **e,
 					+c[j][l]*u[j][l+1]+d[j][l]*u[j][l-1]
 					+e[j][l]*u[j][l]-f[j][l];
 			resid*=mask[j][l]/e[j][l];
+			//if (fabs(resid)>1e-4)
+				//printf("j=%d l=%d resid=%lf\n",j,l,fabs(resid));
 			anormf += fabs(resid);
 		}
 	//printf("%lf\n",anormf);
