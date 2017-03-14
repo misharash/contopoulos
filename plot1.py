@@ -3,10 +3,8 @@ from numpy import *
 import pylab as plt
 from scipy import genfromtxt
 i=1
-insidearr=genfromtxt("data/inside-1.dat".format(i)).T
-outsidearr=genfromtxt("data/outside-1.dat".format(i)).T
-N=len(insidearr)-1
-arr=hstack((insidearr,outsidearr))
+arr=genfromtxt("data/all-1.dat".format(i)).T
+N=len(arr)-1
 xall=arange(N+1)/N*10
 zall=arange(N+1)/N*10
 nx=len(xall[xall<3])
