@@ -1,5 +1,6 @@
-#include <stdlib.h>
+#include <stdlib.h> //for malloc
 #include <signal.h> //SIGINT handling
+#include <fenv.h> //for NaN tracking
 //for mkdir
 #include <sys/stat.h>
 #include <sys/types.h>
@@ -15,6 +16,7 @@ double sqr(double a) {return a*a;}
 #include "lib/main-stat.h"
 
 int main() {
+	feenableexcept(FE_INVALID | FE_OVERFLOW); //for NaN tracking
 	//malloc
 	allfilen=malloc(50);
 	tfilen=malloc(50);

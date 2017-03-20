@@ -5,7 +5,7 @@ void solvePSR(double **a, double **b, double **c, double **d, double **e,
 	double **f, double **u, double** mask, int n, int m, const double rjac)
 {
 	const int MAXITS=10000;
-	const double EPS=1e-4;
+	const double EPS=1e-3;
 	double anormf=0.0,omega=1.0,anorm,resid;
 	int j,l,k,ipass,jsw,lsw;
 	for (j=1;j<n-1;j++)
@@ -30,19 +30,6 @@ void solvePSR(double **a, double **b, double **c, double **d, double **e,
 						+c[j][l]*u[j][l+1]+d[j][l]*u[j][l-1]
 						+e[j][l]*u[j][l]-f[j][l];
 					resid*=mask[j][l]/e[j][l];
-					//temp
-					if ((resid!=resid)||(resid==1.0/0.0)||(resid==-1.0/0.0)) {
-						printf("%lf appeared step %d\n",resid,k);
-						printf("j=%d l=%d\n",j,l);
-						printf("a=%lf b=%lf\n",a[j][l],b[j][l]);
-						printf("c=%lf d=%lf\n",c[j][l],d[j][l]);
-						printf("e=%lf f=%lf\n",e[j][l],f[j][l]);
-						printf("AA(%lf)=%lf\n",u[j][l],AA(u[j][l]));
-						printf("ua=%lf ub=%lf\n",u[j+1][l],u[j-1][l]);
-						printf("uc=%lf ud=%lf\n",u[j][l+1],u[j][l-1]);
-						exit(-1);
-					}
-					//endtemp
 					anorm += fabs(resid);
 					u[j][l] -= omega*resid;
 				}
