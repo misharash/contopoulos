@@ -16,3 +16,15 @@ void printtofiles(int a) {
     if (a!=0)
 	exit(-1);
 }
+
+void printtofile_int(int kk) {
+    sprintf(allfilen,"data/all-%d-%d.dat",k,kk);
+    FILE *allfile=fopen(allfilen,"w");
+    int i,j;
+    for (i=0;i<alln-1;i++) {
+        for (j=1;j<allm-1;j++)
+            fprintf(allfile,"%lf ",allu[i][j]);
+        fprintf(allfile,"\n");
+    }
+    fclose(allfile);
+}

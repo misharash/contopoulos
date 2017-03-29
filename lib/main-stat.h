@@ -21,6 +21,7 @@ int main_loop() {
 		//solve many times
 		diff2=1e20;
 		kk=0;
+		printtofile_int(kk);
 		while (diff2>1e-2) {
 			matcpy(oldallu,allu,alln,allm);
 			solvePSR(alla,allb,allc,alld,alle,allf,allu,allmask,alln,allm,0.9999);
@@ -38,7 +39,7 @@ int main_loop() {
                 allf[N][j]=(allf[N+1][j]-allf[N-1][j])/2/h;
 			diff2=sqrt(diff2)/N;
 			printf("Solved %d: diff %lf\n",kk,diff2);
-            //printtofiles(-1); //temp
+            printtofile_int(kk);
 		}
 		//fill array for sorting
 		for (j=1;j<=N+1;j++) {
