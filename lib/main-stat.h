@@ -11,7 +11,7 @@ int main_loop() {
     for (j=1;j<allm-1;j++)
         allf[N][j]=(allf[N+1][j]-allf[N-1][j])/2/h;
 	//main loop
-	double diff=1e20,diff2;
+	double diff=1e20,diff2,diffe;
 	double **oldallu=matalloc(alln,allm);
 	k=0;
     //what is diff? (not actual in monopole)
@@ -30,8 +30,10 @@ int main_loop() {
 			//rewrite f's and count difference
 			for (i=1;i<alln-1;i++)
 				for (j=1;j<allm-1;j++) {
+					diffe=allu[i][j]-oldallu[i][j];
+					diff2+=sqr(diffe);
+					allu[i][j]=oldallu[i][j]+ewt*diffe;
 					allf[i][j]=AA(allu[i][j]);
-					diff2+=sqr(allu[i][j]-oldallu[i][j]);
 				}
             allf[alln-2][allm-2]=0; //top right angle is special
             //f's for LC
