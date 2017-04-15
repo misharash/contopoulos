@@ -10,7 +10,7 @@ int main_loop() {
 		for (j=1;j<outm-1;j++)
 			outf[i][j]=-AA(outu[i][j]);
 	//main loop
-	double diff=1e20,diff2;
+	double diff=1e20,diff2,diffl;
 	double **oldinu=matalloc(inn,inm),**oldoutu=matalloc(outn,outm);
 	k=0;
 	while (diff>1e-3) {
@@ -19,7 +19,7 @@ int main_loop() {
 		//solve inside many times
 		diff2=1e20;
 		kk=0;
-		while (diff2>1e-2) {
+		while (diff2>1e-3) {
 			matcpy(oldinu,inu,inn,inm);
 			solvePSR(ina,inb,inc,ind,ine,inf,inu,inmask,inn,inm,0.9999);
 			kk++;
@@ -45,7 +45,7 @@ int main_loop() {
 		//solve outside many times
 		diff2=1e20;
 		kk=0;
-		while (diff2>1e-2) {
+		while (diff2>1e-3) {
 			matcpy(oldoutu,outu,outn,outm);
 			solvePSR(outa,outb,outc,outd,oute,outf,outu,outmask,outn,outm,0.9999);
 			kk++;
@@ -53,8 +53,10 @@ int main_loop() {
 			//rewrite f's and count difference
 			for (i=1;i<outn-1;i++)
 				for (j=1;j<outm-1;j++) {
+					diffl=outu[i][j]-oldoutu[i][j];
+					outu[i][j]=oldoutu[i][j]+ewt*diffl;
 					outf[i][j]=-AA(outu[i][j]);
-					diff2+=sqr(outu[i][j]-oldoutu[i][j]);
+					diff2+=sqr(diffl);
 				}
 			diff2=sqrt(diff2)/N;
 			printf("Solved outside %d: diff %lf\n",kk,diff2);

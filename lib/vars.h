@@ -12,3 +12,4 @@ double h; //just 1/N
 datapair *dp; //array for sorting Psi and AA together
 double **ina,**inb,**inc,**ind,**ine,**inf,**inmask; //coefficient arrays for inside solver
 double **outa,**outb,**outc,**outd,**oute,**outf,**outmask; //coefficient arrays for outside solver
+double ewt=0.05;

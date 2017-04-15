@@ -54,7 +54,8 @@ int inside_init() {
 	    x=xin;
 	    z=1/(1-zin)-1;
 	    //inu[i][j]=sqr(x)/pow(sqr(x)+sqr(z),1.5);
-	    inu[i][j]=Psiopen*(1-z/hypot(x,z)); //not dipole but monopole
+	    //inu[i][j]=Psiopen*(1-z/hypot(x,z)); //not dipole but monopole
+	    inu[i][j]=0.8*Psiopen*(1-z/hypot(x,z)); //distorted monopole
 	}
     }
     //create exact dipolar area here to begin, size of about N/20 (???)
@@ -129,7 +130,8 @@ int outside_init() {
 	    x=1/(1-xout);
 	    z=1/(1-zout)-1;
 	    //outu[i][j]=sqr(x)/pow(sqr(x)+sqr(z),1.5);
-	    outu[i][j]=Psiopen*(1-z/hypot(x,z)); //not dipole but monopole
+	    //outu[i][j]=Psiopen*(1-z/hypot(x,z)); //not dipole but monopole
+	    outu[i][j]=0.8*Psiopen*(1-z/hypot(x,z)); //distorted monopole
 	}
     }
     //upper boundary value is already set as zero
