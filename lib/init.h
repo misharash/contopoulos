@@ -47,7 +47,7 @@ int all_init() {
 	    alld[i][j]=(sqr(x)-1)/sqr(h);
 	    alle[i][j]=-4*(sqr(x)-1)/sqr(h);
 	    //initial u is dipole
-	    allu[i][j]=sqr(x)/pow(sqr(x)+sqr(z),1.5);
+	    //allu[i][j]=sqr(x)/pow(sqr(x)+sqr(z),1.5);
 	    //allu[i][j]=Psiopen*(1-z/hypot(x,z)); //not dipole but monopole
 	    //allu[i][j]=0.8*Psiopen*(1-z/hypot(x,z)); //distorted monopole
 	}
