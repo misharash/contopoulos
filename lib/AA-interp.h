@@ -4,8 +4,8 @@ double AA(double Psi) {
 	double dPsi=Psi-Psiopen;
 	if (Psi>Psiopen) return -Psiopen*Psiopen*dPsi/sigma2*exp(-dPsi*dPsi/sigma2);
 	if (Psi<0) return 0;
-	//return 2*Psi*(1-Psi/Psiopen)*(2-Psi/Psiopen);
-	return 2*Psi*(1-Psi/Psiopen)*(2-Psi/Psiopen)/1.05; //distort this
+	return 2*Psi*(1-Psi/Psiopen)*(2-Psi/Psiopen);
+	//return 2*Psi*(1-Psi/Psiopen)*(2-Psi/Psiopen)/1.05; //distort this
 }
 /*
 double AA(double Psi) {
