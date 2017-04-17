@@ -11,12 +11,12 @@ int AA_init() {
     AAs=calloc(N+1,sizeof(double));
     Psis=calloc(N+1,sizeof(double));
     for (i=0;i<=N;i++) {
-	Psis[i]=(double)(N-i)/N*Psiopen;
-	AAs[i]=2*Psis[i]*(1-Psis[i]/Psiopen)*(2-Psis[i]/Psiopen);
-	//AAs[i]=2*Psis[i]*(1-Psis[i]/Psiopen)*(2-Psis[i]/Psiopen)*1.1; //distort this
-	//take A=-2*Psi => AA'=4*Psi
-	//Psis[i]=1e6*(N-i);
-	//AAs[i]=4*Psis[i];
+		Psis[i]=(double)(N-i)/N*Psiopen;
+		AAs[i]=2*Psis[i]*(1-Psis[i]/Psiopen)*(2-Psis[i]/Psiopen); //monopole current
+		//AAs[i]=2*Psis[i]*(1-Psis[i]/Psiopen)*(2-Psis[i]/Psiopen)*1.1; //distort this
+		//take A=-2*Psi => AA'=4*Psi
+		//Psis[i]=1e6*(N-i);
+		//AAs[i]=4*Psis[i];
     }
     return 0;
 }
@@ -54,7 +54,7 @@ int inside_init() {
 	    x=xin;
 	    z=1/(1-zin)-1;
 	    //inu[i][j]=sqr(x)/pow(sqr(x)+sqr(z),1.5);
-	    //inu[i][j]=Psiopen*(1-z/hypot(x,z)); //not dipole but monopole
+	    inu[i][j]=Psiopen*(1-z/hypot(x,z)); //not dipole but monopole
 	    //inu[i][j]=0.8*Psiopen*(1-z/hypot(x,z)); //distorted monopole
 	}
     }
@@ -130,7 +130,7 @@ int outside_init() {
 	    x=1/(1-xout);
 	    z=1/(1-zout)-1;
 	    //outu[i][j]=sqr(x)/pow(sqr(x)+sqr(z),1.5);
-	    //outu[i][j]=Psiopen*(1-z/hypot(x,z)); //not dipole but monopole
+	    outu[i][j]=Psiopen*(1-z/hypot(x,z)); //not dipole but monopole
 	    //outu[i][j]=0.8*Psiopen*(1-z/hypot(x,z)); //distorted monopole
 	}
     }

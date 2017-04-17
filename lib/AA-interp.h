@@ -1,5 +1,6 @@
 #include <math.h>
 
+/*
 double AA(double Psi) {
 	double dPsi=Psi-Psiopen;
 	if (Psi>Psiopen) return -Psiopen*Psiopen*dPsi/sigma2*exp(-dPsi*dPsi/sigma2);
@@ -7,7 +8,8 @@ double AA(double Psi) {
 	return 2*Psi*(1-Psi/Psiopen)*(2-Psi/Psiopen);
 	//return 2*Psi*(1-Psi/Psiopen)*(2-Psi/Psiopen)/1.05; //distort this
 }
-/*
+*/
+
 double AA(double Psi) {
 	double dPsi=Psi-Psis[0];
 	if (dPsi>0)
@@ -18,4 +20,3 @@ double AA(double Psi) {
 		return AAs[i-1]+(AAs[i]-AAs[i-1])*(Psi-Psis[i-1])/(Psis[i]-Psis[i-1]);
 	return AAs[i];
 }
-*/
