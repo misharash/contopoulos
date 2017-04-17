@@ -1,6 +1,8 @@
 #include <stdio.h>
 
 int main_loop() {
+	//file to write evolution
+	FILE *evolfile=fopen("data/evol.dat","w");
 	int i,j,kk;
 	//fill f's
 	for (i=1;i<inn-1;i++)
@@ -82,6 +84,7 @@ int main_loop() {
 		//print number of loops and difference
 		diff=sqrt(diff/N);
 		printf("\n%d %lf\n",k,diff);
+		fprintf(evolfile,"%d %lf\n",k,diff);
 	}
 	return 0;
 }
