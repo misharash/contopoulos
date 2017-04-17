@@ -53,7 +53,7 @@ int inside_init() {
 	    //initial u is dipole
 	    x=xin;
 	    z=1/(1-zin)-1;
-	    //inu[i][j]=sqr(x)/pow(sqr(x)+sqr(z),1.5);
+	    inu[i][j]=sqr(x)/pow(sqr(x)+sqr(z),1.5);
 	    //inu[i][j]=Psiopen*(1-z/hypot(x,z)); //not dipole but monopole
 	    //inu[i][j]=0.8*Psiopen*(1-z/hypot(x,z)); //distorted monopole
 	}
@@ -67,8 +67,8 @@ int inside_init() {
 	for (j=1;j<=da+1;j++) {
 	    zin=h*(j-1);
 	    z=1/(1-zin)-1;
-	    //inu[i][j]=sqr(x)/pow(sqr(x)+sqr(z),3.0/2.0);
-	    inu[i][j]=Psiopen*(1-z/hypot(x,z)); //not dipole but monopole
+	    inu[i][j]=sqr(x)/pow(sqr(x)+sqr(z),3.0/2.0);
+	    //inu[i][j]=Psiopen*(1-z/hypot(x,z)); //not dipole but monopole
 	    //printf("%lf %lf %lf\n",x,z,inu[i][j]);
 	    inmask[i][j]=0;
 	}
@@ -79,21 +79,21 @@ int inside_init() {
     j=1;
     zin=h*(j-1);
     for (i=1;i<inn-1;i++) {
-	xin=h*i;
-	inc[i][j]=(1-sqr(xin))*(sqr(sqr(1-zin))*2/sqr(h));
-	ind[i][j]=0;
-	inmask[i][j]=0; //temp for monopole check
-	inu[i][j]=Psiopen; //temp
-	//other coefficients don't change
+		xin=h*i;
+		inc[i][j]=(1-sqr(xin))*(sqr(sqr(1-zin))*2/sqr(h));
+		ind[i][j]=0;
+		//inmask[i][j]=0; //temp for monopole check
+		//inu[i][j]=Psiopen; //temp
+		//other coefficients don't change
     }
     //right: this boundary condition is just degradated equation, so we can do nothing but approximate derivative as left derivative
     i=N;
     for (j=1;j<inm-1;j++) {
-	ina[i][j]=0;
-	inb[i][j]=2/h;
-	inc[i][j]=0;
-	ind[i][j]=0;
-	ine[i][j]=-2/h;
+		ina[i][j]=0;
+		inb[i][j]=2/h;
+		inc[i][j]=0;
+		ind[i][j]=0;
+		ine[i][j]=-2/h;
     }
     return 0;
 }
@@ -130,7 +130,7 @@ int outside_init() {
 	    x=1/(1-xout);
 	    z=1/(1-zout)-1;
 	    //outu[i][j]=sqr(x)/pow(sqr(x)+sqr(z),1.5);
-	    //outu[i][j]=Psiopen*(1-z/hypot(x,z)); //not dipole but monopole
+	    outu[i][j]=Psiopen*(1-z/hypot(x,z)); //not dipole but monopole
 	    //outu[i][j]=0.8*Psiopen*(1-z/hypot(x,z)); //distorted monopole
 	}
     }

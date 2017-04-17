@@ -78,9 +78,9 @@ int main_loop() {
 		}
 		//print to files
 		printtofiles(0);
-		break; //temporarily!
+		//break; //temporarily!
 		//print number of loops and difference
-		diff=sqr(diff/N);
+		diff=sqrt(diff/N);
 		printf("\n%d %lf\n",k,diff);
 	}
 	return 0;
