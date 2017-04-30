@@ -29,8 +29,10 @@ int main_loop() {
 			//rewrite f's and count difference
 			for (i=1;i<inn-1;i++)
 				for (j=1;j<inm-1;j++) {
+					diffl=inu[i][j]-oldinu[i][j];
+					inu[i][j]=oldinu[i][j]+ewt*diffl;
 					inf[i][j]=-AA(inu[i][j]);
-					diff2+=sqr(inu[i][j]-oldinu[i][j]);
+					diff2+=sqr(diffl);
 				}
 			diff2=sqrt(diff2)/N;
 			printf("Solved inside %d: diff %lf\n",kk,diff2);
@@ -78,6 +80,8 @@ int main_loop() {
 			Psis[i]=dp[i].Psi;
 			printf("%lf - %lf; ",Psis[i],AAs[i]);
 		}
+		//to make AA'(Psi) continuous (maybe wrong)
+		//AAs[0]=0;
 		//integrate to get A0
 		A0=0;
 		for (i=0;i<N;i++)
