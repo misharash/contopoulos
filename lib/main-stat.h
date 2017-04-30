@@ -78,6 +78,11 @@ int main_loop() {
 			Psis[i]=dp[i].Psi;
 			printf("%lf - %lf; ",Psis[i],AAs[i]);
 		}
+		//integrate to get A0
+		A0=0;
+		for (i=0;i<N;i++)
+			A0+=(AAs[i]+AAs[i+1])*(Psis[i]-Psis[i+1]);
+		A0=sqrt(A0);
 		//print to files
 		printtofiles(0);
 		//break; //temporarily!

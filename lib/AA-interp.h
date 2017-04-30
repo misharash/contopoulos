@@ -13,7 +13,7 @@ double AA(double Psi) {
 double AA(double Psi) {
 	double dPsi=Psi-Psis[0];
 	if (dPsi>0)
-		return AAs[0]*exp(-dPsi*dPsi/sigma2);
+		return -A0*A0*dPsi/sigma2*exp(-dPsi*dPsi/sigma2);
 	int i;
 	for (i=1;(i<=N)&&(Psis[i]>=Psi);i++);
 	if (fabs(Psis[i]-Psis[i-1])>1e-5)
