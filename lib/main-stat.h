@@ -87,6 +87,9 @@ int main_loop() {
 		for (i=0;i<N;i++)
 			A0+=(AAs[i]+AAs[i+1])*(Psis[i]-Psis[i+1]);
 		A0=sqrt(A0);
+		//count derivatives
+		A0s=AAs[0]/A0;
+		A0ss=-(A0+A0s*tPsi)/sqr(tPsi);
 		//print to files
 		printtofiles(0);
 		//break; //temporarily!
