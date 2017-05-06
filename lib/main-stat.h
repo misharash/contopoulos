@@ -30,7 +30,7 @@ int main_loop() {
 			for (i=1;i<inn-1;i++)
 				for (j=1;j<inm-1;j++) {
 					diffl=inu[i][j]-oldinu[i][j];
-					inu[i][j]=oldinu[i][j]+ewt*diffl;
+					inu[i][j]=oldinu[i][j]+ewti*diffl;
 					inf[i][j]=-AA(inu[i][j]);
 					diff2+=sqr(diffl);
 				}
@@ -58,7 +58,7 @@ int main_loop() {
 			for (i=1;i<outn-1;i++)
 				for (j=1;j<outm-1;j++) {
 					diffl=outu[i][j]-oldoutu[i][j];
-					outu[i][j]=oldoutu[i][j]+ewt*diffl;
+					outu[i][j]=oldoutu[i][j]+ewto*diffl;
 					outf[i][j]=-AA(outu[i][j]);
 					diff2+=sqr(diffl);
 				}
