@@ -1,6 +1,6 @@
 //global variables
 int N=160; //grid size
-double mu1=0.5,mu2=0.5,mu3=-.2; //weight coefficients for AA
+double mu1=0.5,mu2=0.5,mu3=-.4; //weight coefficients for AA
 double l1=0.5,l2=0.5; //weight coefficients for Psi
 double *AAs,*Psis; //table of (Psy,AA') on light cylinder
 double A0,A0s,A0ss; //value, first and second derivative of A on last open field line
